@@ -111,7 +111,7 @@ def run():
 
     elif choice == 'Project Github Link':
             st.sidebar.write("Click Here")
-            st.sidebar.write("[LinkedIn Profile](https://github.com/Dipto755/Movie-Recommendation-System)")
+            st.sidebar.write("[Github link](https://github.com/Dipto755/Movie-Recommendation-System)")
 
     elif choice == 'About Us':
         st.sidebar.write("Md.Akteruzzaman Dipto")
@@ -137,7 +137,43 @@ def run():
         st.markdown('''<h4 style='text-align: left; color: #d73b5c;'>* Fetching a Movie Posters will take a time."</h4>''',
                     unsafe_allow_html=True)
         if dec == 'No':
-            pass
+            if select_movie == '--Select--':
+                st.warning('Please select Movie!!')
+            else:
+                no_of_reco = st.slider('Number of movies you want Recommended:', min_value=5, max_value=20, step=1)
+                genres = data[movies.index(select_movie)]
+                test_points = genres
+                table = KNN_Movie_Recommender(test_points, no_of_reco+1)
+                table.pop(0)
+                c = 0
+                st.success('Some of the movies from our Recommendation, have a look below')
+                streamlit_style = """
+                                                  			<style>
+                                                             @import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+                                                  			html, body, [class*="css"]  {
+                                                  			# font-family: 'Roboto', sans-serif;
+                                                  			font-family: 'PT Serif', serif;
+
+                                                  			}
+                                                  			</style>
+                                                  			"""
+                st.markdown(streamlit_style, unsafe_allow_html=True)
+
+                for movie, link, ratings in table:
+                    c+=1
+                    director,cast,story,total_rat = get_movie_info(link)
+                    st.title(f"({c}) {movie}")
+                    st.markdown(director)
+                    st.markdown(cast)
+                    st.markdown(story)
+                    st.markdown('IMDB Rating: ' + str(ratings) + '⭐')
+                    st.markdown(f"(IMDB Link)[ {movie}]({link})")
+                    st.write("\n")
+                    st.write(" \n")
+                    st.write("  \n")
+                    st.write("\n")
+                    st.write(" \n")
+                    st.write("  \n")
         else:
             if select_movie == '--Select--':
                 st.warning('Please select Movie!!')
@@ -219,7 +255,41 @@ def run():
         st.markdown('''<h4 style='text-align: left; color: #d73b5c;'>* Fetching a Movie Posters will take a time."</h4>''',
                     unsafe_allow_html=True)
         if dec == 'No':
-            pass
+            if sel_gen:
+                imdb_score = st.slider('Choose IMDb score:', 1, 10, 8)
+                no_of_reco = st.number_input('Number of movies:', min_value=5, max_value=20, step=1)
+                test_point = [1 if genre in sel_gen else 0 for genre in genres]
+                test_point.append(imdb_score)
+                table = KNN_Movie_Recommender(test_point, no_of_reco)
+                c = 0
+                st.success('Some of the movies from our Recommendation, have a look below')
+                streamlit_style = """
+                                                               			<style>
+                                                                          @import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+                                                               			html, body, [class*="css"]  {
+                                                               			# font-family: 'Roboto', sans-serif;
+                                                               			font-family: 'PT Serif', serif;
+
+                                                               			}
+                                                               			</style>
+                                                               			"""
+                st.markdown(streamlit_style, unsafe_allow_html=True)
+
+                for movie, link, ratings in table:
+                    c += 1
+                    director, cast, story, total_rat = get_movie_info(link)
+                    st.title(f"({c}) {movie}")
+                    st.markdown(director)
+                    st.markdown(cast)
+                    st.markdown(story)
+                    st.markdown('IMDB Rating: ' + str(ratings) + '⭐')
+                    st.markdown(f"(IMDB Link)[ {movie}]({link})")
+                    st.write("\n")
+                    st.write(" \n")
+                    st.write("  \n")
+                    st.write("\n")
+                    st.write(" \n")
+                    st.write("  \n")
         else:
             if sel_gen:
                 imdb_score = st.slider('Choose IMDb score:', 1, 10, 8)
