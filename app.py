@@ -18,7 +18,7 @@ def movie_poster_fetcher(imdb_link):
     url_data = requests.get(
         url='https://proxy.scrapeops.io/v1/',
         params={
-            'api_key': 'a056e7ae-f744-464e-a1e4-16cfd4a111f2',
+            'api_key': '52b6681d-3a81-4b05-aa00-ff515bdc5c81',
             'url': imdb_link, 
         },
     )
@@ -38,7 +38,7 @@ def get_movie_info(imdb_link):
     url_data = requests.get(
         url='https://proxy.scrapeops.io/v1/',
         params={
-            'api_key': 'a056e7ae-f744-464e-a1e4-16cfd4a111f2',
+            'api_key': '52b6681d-3a81-4b05-aa00-ff515bdc5c81',
             'url': imdb_link, 
         },
     )
