@@ -55,7 +55,7 @@ except Exception as e:
 
 ## Test 3 (Selecting movie)
 try:
-    report.write_step('Selecting Movie', status=report.status.Start, test_number=3)
+    report.write_step('Selecting Movie with poster', status=report.status.Start, test_number=3)
 
     ### Selection movie (this time : "Harry Potter" with poster)
     driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div[1]").click()
@@ -72,6 +72,66 @@ except AssertionError:
     report.write_step('Selection of Movie (Harry Potter and the Sorcerers Stone) failed!', status=report.status.Fail, screenshot=True)
 except Exception as e:
     report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
+
+
+## Test 4 (Selecting another movie)
+try:
+    report.write_step('Selecting another Movie with poster', status=report.status.Start, test_number=4)
+
+    ### Selection movie (this time : "Toy Story" with poster)
+    driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div[1]").click()
+    time.sleep(2)
+
+    driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div[1]/div/input").send_keys("Toy Story"+Keys.ENTER)
+    time.sleep(2)
+
+    movie = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div[1]/div[1]").text
+
+    assert(movie == "Toy Story")
+    report.write_step('Selection of Movie (Toy Story) Successful', status=report.status.Pass, screenshot=True)
+except AssertionError:
+    report.write_step('Selection of Movie (Toy Story) failed!', status=report.status.Fail, screenshot=True)
+except Exception as e:
+    report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
+
+
+## Test 5 (Selecting poster fetch option to no)
+try:
+    report.write_step('Selecting poster fetch option to no' , status=report.status.Start, test_number=5)
+
+    ### Selecting fetch poster option to 'NO'
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[6]/div/div/label[2]/div[1]').click()
+    time.sleep(2)
+
+    optn = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[6]/div/div/label[2]/div[2]").text
+
+    assert(optn == "No")
+    report.write_step('Selection of poster fetch option to no Successful', status=report.status.Pass, screenshot=True)
+except AssertionError:
+    report.write_step('Selection of poster fetch option to no failed!', status=report.status.Fail, screenshot=True)
+except Exception as e:
+    report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
+
+## Test 6 (Selecting movie)
+try:
+    report.write_step('Selecting Movie without poster', status=report.status.Start, test_number=6)
+
+    ### Selection movie (this time : "Harry Potter" without poster)
+    driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div[1]").click()
+    time.sleep(2)
+
+    driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div[1]/div/input").send_keys("Harry Potter and the Sorcerer's Stone"+Keys.ENTER)
+    time.sleep(5)
+
+    movie = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div[1]/div[1]").text
+
+    assert(movie == "Harry Potter and the Sorcerer's Stone")
+    report.write_step('Selection of Movie without poster (Harry Potter and the Sorcerers Stone) Successful', status=report.status.Pass, screenshot=True)
+except AssertionError:
+    report.write_step('Selection of Movie without poster (Harry Potter and the Sorcerers Stone) failed!', status=report.status.Fail, screenshot=True)
+except Exception as e:
+    report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
+
 
 
 
