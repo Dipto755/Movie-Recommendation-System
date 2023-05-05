@@ -53,6 +53,7 @@ except AssertionError:
 except Exception as e:
     report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
 
+
 ## Test 3 (Selecting movie)
 try:
     report.write_step('Selecting Movie with poster', status=report.status.Start, test_number=3)
@@ -133,6 +134,65 @@ except Exception as e:
     report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
 
 
+## Test 7 (Selecting recommendation type (Genre))
+try:
+    report.write_step('Selecting Recommendation Type (Genre)', status=report.status.Start, test_number=7)
+
+    ### Selecting recommendation type (genre)
+    driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[4]/div/div/div/div[1]/div/input").send_keys("Genre based"+Keys.ENTER)
+    time.sleep(2)
+
+    recom_type = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[4]/div/div/div/div[1]/div[1]").text
+
+    assert(recom_type == "Genre based")
+    report.write_step('Selection of Recommendation type (Genre) Successful', status=report.status.Pass, screenshot=True)
+except AssertionError:
+    report.write_step('Selection of Recommendation type (Genre) failed!', status=report.status.Fail, screenshot=True)
+except Exception as e:
+    report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
+
+
+## Test 8 (Selecting movie genres)
+try:
+    report.write_step('Selecting Movie Genres without poster', status=report.status.Start, test_number=8)
+
+    ### Selection movie genres without poster
+    driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div/div[1]/div[2]").click()
+    time.sleep(2)
+
+    driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div/div[1]/div/input").send_keys("Crime"+Keys.ENTER)
+    time.sleep(1)
+
+    genre = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[2]/div[1]/div[1]/div/div[5]/div/div/div/div/div[1]").text
+
+    assert(genre == "Crime")
+    report.write_step('Selection of Movie genre without poster Successful', status=report.status.Pass, screenshot=True)
+except AssertionError:
+    report.write_step('Selection of Movie genre without poster failed!', status=report.status.Fail, screenshot=True)
+except Exception as e:
+    report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
+
+## Test 9 (about section)
+try:
+    report.write_step('Expanding about section', status=report.status.Start, test_number=9)
+
+    driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/div/button/svg").click()
+    time.sleep(2)
+
+    text = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/section[1]/div[1]/div[2]/div/div[1]/div/div[1]/div/label/div/p").text
+except Exception as e:
+    report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
+
+## Test 10
+try:
+    report.write_step('Landing about section', status=report.status.Start, test_number=10)
+
+    assert (driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/div/button/svg"))
+    report.write_step('Landing about section Successful', status=report.status.Pass, screenshot=True)
+except AssertionError:
+    report.write_step('Landing about section failed!', status=report.status.Fail, screenshot=True)
+except Exception as e:
+    report.write_step('Something went Wrong!', status=report.status.Warn, screenshot=True)
 
 
 finally:
